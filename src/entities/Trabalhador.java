@@ -13,11 +13,12 @@ public class Trabalhador {
     private List<Contrato> contratos;
     private Departamento departamento;
 
-    public Trabalhador(String nome, NivelTrabalhador nivel, Double salarioBase) {
+    public Trabalhador(String nome, NivelTrabalhador nivel, Double salarioBase, Departamento departamento) {
         this.nome = nome;
         this.nivel = nivel;
         this.salarioBase = salarioBase;
         this.contratos = new ArrayList<Contrato>();
+        this.departamento = departamento;
     }
 
     public String getNome() {
@@ -64,7 +65,7 @@ public class Trabalhador {
         this.contratos.remove(contrato);
     }
 
-    public Double renda(Integer ano, Integer mes) {
+    public Double obterRenda(Integer ano, Integer mes) {
 
         SimpleDateFormat formatter = new SimpleDateFormat("MM/yyyy");
         String dataRendaString = String.valueOf(mes).concat("/").concat(String.valueOf(ano));
@@ -79,8 +80,8 @@ public class Trabalhador {
                     rendaTotal = rendaTotal + contratoAtual.getValorHora() * contratoAtual.getHoras();
                 }
             }
-            return rendaTotal;
+            return rendaTotal + this.salarioBase;
         } catch (ParseException pe){}
-        return rendaTotal;
+        return rendaTotal + this.salarioBase;
     }
 }
