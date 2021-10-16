@@ -69,7 +69,7 @@ public class Trabalhador {
 
         SimpleDateFormat formatter = new SimpleDateFormat("MM/yyyy");
         String dataRendaString = String.valueOf(mes).concat("/").concat(String.valueOf(ano));
-        double rendaTotal = 0.00;
+        double rendaTotal = this.salarioBase;
         try{
             Date dataRenda = formatter.parse(dataRendaString);
             for (int i = 0; i < this.contratos.size(); i++) {
@@ -77,11 +77,11 @@ public class Trabalhador {
                 Date dataContrato = formatter.parse(formatter.format(contratoAtual.getData()));
 
                 if (dataRenda.compareTo(dataContrato) == 0) {
-                    rendaTotal = rendaTotal + contratoAtual.getValorHora() * contratoAtual.getHoras();
+                    rendaTotal = rendaTotal + contratoAtual.valorTotal();
                 }
             }
-            return rendaTotal + this.salarioBase;
+            return rendaTotal;
         } catch (ParseException pe){}
-        return rendaTotal + this.salarioBase;
+        return rendaTotal;
     }
 }
